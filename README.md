@@ -4,9 +4,7 @@ Requirements
  - [Node.js](https://nodejs.org/en/)
  - [Open MPI](https://www.open-mpi.org)
 
-## Let's Start!
-
-### MPI basics
+## MPI basics
 
 By using Open MPI's `mpiexec` command, we can run serial or parallel jobs in multiple processors.
 
@@ -137,7 +135,7 @@ me
 
 Read more about `mpiexec` command and available option in the [documentation](https://www.open-mpi.org/doc/current/man1/mpiexec.1.php).
 
-### Using MPI with node.js
+## Using MPI with node.js
 
 > Most of the following examples require 4 cores computer to run
 
@@ -161,13 +159,19 @@ Core 2: Charlie
 Core 3: Dave
 ```
 
+See all environment variables in `process-env.json`.
+
+### Exporting stdout into files
+
 You can export the stdout into files by using `--output-filename`:
 
 ```
 mpiexec --bind-to core --output-filename ./temp/basic-demo-2-result node basic-demo-2.js
 ```
 
-Now, we can actually calculate things by using the techniques above
+### Accepting command line arguments
+
+Now, we can actually calculate things by using the techniques learned above
 
 ```
 $ mpiexec --bind-to core node calculate.js 5
