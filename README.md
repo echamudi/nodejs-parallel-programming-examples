@@ -161,7 +161,7 @@ Core 3: Dave
 
 See all environment variables in `process-env.json`.
 
-### Exporting stdout into files
+## Exporting stdout into files
 
 You can export the stdout into files by using `--output-filename`:
 
@@ -169,9 +169,9 @@ You can export the stdout into files by using `--output-filename`:
 mpiexec --bind-to core --output-filename ./temp/basic-demo-2-result node basic-demo-2.js
 ```
 
-### Accepting command line arguments
+## Accepting command line arguments
 
-Now, we can actually calculate things by using the techniques learned above
+Now, we can actually calculate things from input argument by using the techniques learned above
 
 ```
 $ mpiexec --bind-to core node calculate.js 5
