@@ -139,6 +139,8 @@ Read more about `mpiexec` command and available option in the [documentation](ht
 
 ### Using MPI with node.js
 
+> Most of the following examples require 4 cores computer to run
+
 Using the same concept, we can run node program in multiple cores.
 
 ```
@@ -157,4 +159,27 @@ Core 0: Alice
 Core 1: Bob
 Core 2: Charlie
 Core 3: Dave
+```
+
+You can export the stdout into files by using `--output-filename`:
+
+```
+mpiexec --bind-to core --output-filename ./temp/basic-demo-2-result node basic-demo-2.js
+```
+
+Now, we can actually calculate things by using the techniques above
+
+```
+$ mpiexec --bind-to core node calculate.js 5
+Cube : 125
+Factorial : 120
+Square root : 2.23606797749979
+Fibonacci : 5
+```
+```
+$ mpiexec --bind-to core node calculate.js 7
+Cube : 343
+Square root : 2.6457513110645907
+Factorial : 5040
+Fibonacci : 13
 ```
