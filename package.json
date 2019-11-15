@@ -1,0 +1,22 @@
+{
+  "name": "javascript-parallel-programming-examples",
+  "version": "0.1.0",
+  "description": "Requirements  - [Node.js](https://nodejs.org/en/)  - [Open MPI](https://www.open-mpi.org)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ezhmd/javascript-parallel-programming-examples.git"
+  },
+  "author": "Ezzat Chamudi",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ezhmd/javascript-parallel-programming-examples/issues"
+  },
+  "homepage": "https://github.com/ezhmd/javascript-parallel-programming-examples#readme",
+  "dependencies": {
+    "node-ipc": "^9.1.1"
+  }
+}
