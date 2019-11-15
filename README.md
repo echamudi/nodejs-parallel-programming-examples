@@ -38,7 +38,7 @@ Hello
 We can see the mapped location of each process by using `-display-map` option.
 
 ```
-$ mpiexec -display-map echo Hello
+$ mpiexec --display-map echo Hello
  Data for JOB [3441,1] offset 0
 
  ========================   JOB MAP   ========================
@@ -59,7 +59,7 @@ Hello
 To make sure each process run in seperate cores, use `-bind-to core` option.
 
 ```
-$ mpiexec -display-map -bind-to core echo Hello
+$ mpiexec --display-map --bind-to core echo Hello
  Data for JOB [4852,1] offset 0
 
  ========================   JOB MAP   ========================
@@ -81,7 +81,7 @@ Due to OS limitation, some OSes do not support `-bind-to core`. For example, thi
 if we run the command in macOS.
 
 ```
-$ mpiexec -display-map -bind-to core echo hello
+$ mpiexec --display-map --bind-to core echo hello
 --------------------------------------------------------------------------
 A request was made to bind a process, but at least one node does NOT
 support binding processes to cpus.
@@ -117,7 +117,7 @@ https://github.com/open-mpi/hwloc.
 We can run different commands on each core:
 
 ```
-$ mpiexec -display-map -bind-to core -np 1 echo hello : -np 1 echo this : -np 1 echo is : -np 1 echo me
+$ mpiexec --display-map --bind-to core -np 1 echo hello : -np 1 echo this : -np 1 echo is : -np 1 echo me
  Data for JOB [11168,1] offset 0
 
  ========================   JOB MAP   ========================
@@ -142,7 +142,7 @@ Read more about `mpiexec` command and available option in the [documentation](ht
 Using the same concept, we can run node program in multiple cores.
 
 ```
-$ mpiexec -bind-to core node basic-demo.js
+$ mpiexec --bind-to core node basic-demo.js
 Hey!
 Hey!
 Hey!
@@ -152,7 +152,7 @@ Hey!
 Each process has some different env variables. By accessing those variables, we can make each process doing different tasks:
 
 ```
-$ mpiexec -bind-to core node basic-demo-2.js
+$ mpiexec --bind-to core node basic-demo-2.js
 Core 0: Alice
 Core 1: Bob
 Core 2: Charlie
