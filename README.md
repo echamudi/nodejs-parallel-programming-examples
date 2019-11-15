@@ -187,3 +187,39 @@ Square root : 2.6457513110645907
 Factorial : 5040
 Fibonacci : 13
 ```
+
+## Wrapping mpiexec inside js file
+
+By using `spawn` from `child_process` module. We can instantiate the `mpiexec` command within the js file.
+
+```
+$ node basic-demo-3.js
+stdout:  Data for JOB [28058,1] offset 0
+
+ ========================   JOB MAP   ========================
+
+ Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [28058,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
+        Process OMPI jobid: [28058,1] App: 0 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
+        Process OMPI jobid: [28058,1] App: 0 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
+        Process OMPI jobid: [28058,1] App: 0 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+
+ =============================================================
+
+stdout: Core 0: Alice
+
+stdout: Core 1: Bob
+
+stdout: Core 2: Charlie
+
+stdout: Core 3: Dave
+
+mpiexec exited with code 0
+```
+
+As you can see, we no longer use `mpiexec` command, but simply `node` command to run this parallel program.
+
+By using env parameter, we can make all codes in one file.
+
+```
+```
