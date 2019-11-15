@@ -114,6 +114,27 @@ https://github.com/open-mpi/hwloc.
 --------------------------------------------------------------------------
 ```
 
+We can run different commands on each core:
+
+```
+$ mpiexec -display-map -bind-to core -np 1 echo hello : -np 1 echo this : -np 1 echo is : -np 1 echo me
+ Data for JOB [11168,1] offset 0
+
+ ========================   JOB MAP   ========================
+
+ Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [11168,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
+        Process OMPI jobid: [11168,1] App: 1 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
+        Process OMPI jobid: [11168,1] App: 2 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
+        Process OMPI jobid: [11168,1] App: 3 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+
+ =============================================================
+hello
+this
+is
+me
+```
+
 Read more about `mpiexec` command and available option in the [documentation](https://www.open-mpi.org/doc/current/man1/mpiexec.1.php).
 
 ### Using MPI with node.js
