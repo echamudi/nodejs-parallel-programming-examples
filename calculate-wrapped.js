@@ -7,7 +7,6 @@ if (process.env.OMPI_COMM_WORLD_SIZE === undefined) {
     ipc.config.retry = 1500;
     ipc.config.silent = true;
 
-    let totalMessages;
     let receivedMessages = [];
 
     ipc.serve(
@@ -87,7 +86,7 @@ if (process.env.OMPI_COMM_WORLD_SIZE === undefined) {
             });
 
             ipc.of.master.on('end', function () {
-                ipc.disconnect('master');
+                // ipc.disconnect('master');
                 process.exit();
             });
         }
