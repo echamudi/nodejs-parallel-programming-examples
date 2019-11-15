@@ -222,4 +222,23 @@ As you can see, we no longer use `mpiexec` command, but simply `node` command to
 By using env parameter, we can make all codes in one file.
 
 ```
+$ node calculate-wrapped.js 6
+stdout:  Data for JOB [10668,1] offset 0
+
+ ========================   JOB MAP   ========================
+
+ Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [10668,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
+        Process OMPI jobid: [10668,1] App: 0 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
+        Process OMPI jobid: [10668,1] App: 0 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
+        Process OMPI jobid: [10668,1] App: 0 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+
+ =============================================================
+
+{ core: '1', result: 216 }
+{ core: '0', result: 36 }
+{ core: '2', result: 1296 }
+{ core: '3', result: 7776 }
+The sum of results is  9324
+mpiexec exited with code 0
 ```
