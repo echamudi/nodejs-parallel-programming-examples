@@ -115,3 +115,5 @@ https://github.com/open-mpi/hwloc.
 ```
 
 Read more about `mpiexec` command and available option in the [documentation](https://www.open-mpi.org/doc/current/man1/mpiexec.1.php).
+
+### Using MPI with node.js
