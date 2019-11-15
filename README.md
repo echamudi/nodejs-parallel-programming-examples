@@ -138,3 +138,23 @@ me
 Read more about `mpiexec` command and available option in the [documentation](https://www.open-mpi.org/doc/current/man1/mpiexec.1.php).
 
 ### Using MPI with node.js
+
+Using the same concept, we can run node program in multiple cores.
+
+```
+$ mpiexec -bind-to core node basic-demo.js
+Hey!
+Hey!
+Hey!
+Hey!
+```
+
+Each process has some different env variables. By accessing those variables, we can make each process doing different tasks:
+
+```
+$ mpiexec -bind-to core node basic-demo-2.js
+Core 0: Alice
+Core 1: Bob
+Core 2: Charlie
+Core 3: Dave
+```
