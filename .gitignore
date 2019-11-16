@@ -63,3 +63,4 @@ typings/
 # temp result
 /temp/**/*.*
 !/temp/.gitkeep
+/a.out
