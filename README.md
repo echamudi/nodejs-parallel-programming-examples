@@ -340,7 +340,7 @@ Final Result: [
 Completed calculation, timestamp: 231
 ```
 
-The parallel code (permute-par.js) takes more time than the sequntial code (permute-seq.js) due to overheads.
+The parallel code (permute-par.js) takes more time than the sequential code (permute-seq.js) due to parallel code overheads.
 
 Now, let's try longer input, "ThisIsTest":
 
