@@ -8,7 +8,7 @@ Requirements
 
 ## MPI basics
 
-By using Open MPI's `mpiexec` command, we can run serial or parallel jobs in multiple processors.
+By using Open MPI's `mpiexec` command, we can execute any job/process (serial and parallel) in Open MPI.
 
 For example:
 
@@ -114,6 +114,8 @@ https://github.com/open-mpi/hwloc.
 --------------------------------------------------------------------------
 ```
 
+### Running different programs
+
 We can run different commands on each core:
 
 ```
@@ -133,6 +135,29 @@ hello
 this
 is
 me
+```
+
+This allows us to run processes from different programs even from different programming languanges concurrently:
+
+```
+$ gcc hello.c -o hello
+$ javac Hello.java
+$ mpiexec --display-map --bind-to core -np 1 ./hello : -np 1 python3 hello.py : -np 1 java Hello : -np 1 node hello.js
+ Data for JOB [13304,1] offset 0
+
+ ========================   JOB MAP   ========================
+
+ Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [13304,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
+        Process OMPI jobid: [13304,1] App: 1 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
+        Process OMPI jobid: [13304,1] App: 2 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
+        Process OMPI jobid: [13304,1] App: 3 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+
+ =============================================================
+Hello from C!
+Hello from Python!
+Hello from JavaScript!
+Hello from Java!
 ```
 
 Read more about `mpiexec` command and available option in the [documentation](https://www.open-mpi.org/doc/current/man1/mpiexec.1.php).
