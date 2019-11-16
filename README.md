@@ -1,5 +1,7 @@
 # JavaScript Parallel Programming Examples
 
+In this tutorial, we're going to use node.js and Open MPI to create parallel programs. We use MPI over node's cluster module to get more control over the processes that we generate.
+
 Requirements
  - [Node.js](https://nodejs.org/en/)
  - [Open MPI](https://www.open-mpi.org)
@@ -242,3 +244,6 @@ stdout:  Data for JOB [10668,1] offset 0
 The sum of results is  9324
 mpiexec exited with code 0
 ```
+
+## Unleash the power of parallel programming
+
