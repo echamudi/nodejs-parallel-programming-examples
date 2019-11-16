@@ -35,7 +35,7 @@ Hello
 Hello
 ```
 
-We can see the mapped location of each process by using `-display-map` option.
+We can see the mapped location of each process by using `--display-map` option.
 
 ```
 $ mpiexec --display-map echo Hello
@@ -56,7 +56,7 @@ Hello
 Hello
 ```
 
-To make sure each process run in seperate cores, use `-bind-to core` option.
+To make sure each process run in seperate cores, use `--bind-to core` option.
 
 ```
 $ mpiexec --display-map --bind-to core echo Hello
@@ -77,7 +77,7 @@ Hello
 Hello
 ```
 
-Due to OS limitation, some OSes do not support `-bind-to core`. For example, this is the result
+Due to OS limitation, some OSes do not support `--bind-to core`. For example, this is the result
 if we run the command in macOS.
 
 ```
@@ -139,7 +139,7 @@ Read more about `mpiexec` command and available option in the [documentation](ht
 
 ## Using MPI with node.js
 
-> Most of the following examples require 4 cores computer to run
+> The following examples require computer with 4 cores to run
 
 Using the same concept, we can run node program in multiple cores.
 
@@ -151,7 +151,7 @@ Hey!
 Hey!
 ```
 
-Each process has some different env variables. By accessing those variables, we can make each process doing different tasks:
+Each process has different env variables. By accessing those variables, we can make each process doing different tasks:
 
 ```
 $ mpiexec --bind-to core node basic-demo-2.js
@@ -161,7 +161,7 @@ Core 2: Charlie
 Core 3: Dave
 ```
 
-See all environment variables in `process-env.json`.
+> See all environment variables dump in `process-env.json`.
 
 ## Exporting stdout into files
 
@@ -173,7 +173,7 @@ mpiexec --bind-to core --output-filename ./temp/basic-demo-2-result node basic-d
 
 ## Accepting command line arguments
 
-Now, we can actually calculate things from input argument by using the techniques learned above
+Now, we can actually calculate things from input argument by using the techniques learned above:
 
 ```
 $ mpiexec --bind-to core node calculate.js 5
@@ -192,7 +192,7 @@ Fibonacci : 13
 
 ## Wrapping mpiexec inside js file
 
-By using `spawn` from `child_process` module. We can instantiate the `mpiexec` command within the js file.
+Using `spawn` from `child_process` module, we can instantiate the `mpiexec` command within the js file.
 
 ```
 $ node basic-demo-3.js
@@ -221,7 +221,7 @@ mpiexec exited with code 0
 
 As you can see, we no longer use `mpiexec` command, but simply `node` command to run this parallel program.
 
-By using env parameter, we can make all codes in one file.
+Also, by checking the existence of OMPI env variables, we can make all the codes in one file.
 
 ```
 $ node calculate-wrapped.js 6
@@ -249,7 +249,9 @@ mpiexec exited with code 0
 
 We will try two different approaches running the same naive permutation function. 
 
-The first one is done in sequential fashion, the second one is done concurrently. Same characters in the input string are considered different characters.
+The first one is done in sequential fashion, the second one is done concurrently. 
+
+> Note: In this algorithm, same characters in the input string are considered different characters.
 
 Let's start with "Orange":
 
@@ -340,7 +342,7 @@ Final Result: [
 Completed calculation, timestamp: 231
 ```
 
-The parallel code (permute-par.js) takes more time than the sequential code (permute-seq.js) due to parallel code overheads.
+The parallel code (`permute-par.js`) run worse in thime than the sequential code (`permute-seq.js`) due to some overheads required by the parallel code.
 
 Now, let's try longer input, "ThisIsTest":
 
@@ -453,8 +455,10 @@ Final Result: [
 ]
 Completed calculation, timestamp: 2625
 ```
+
 We can already see that the parallel code generate the result faster.
-Let's try one character longer text: "BigRedKnife"
+Let's try one character longer text, "BigRedKnife":
+
 ```
 $ node permute-seq.js BigRedKnife
 [
@@ -569,4 +573,4 @@ Final Result: [
 Completed calculation, timestamp: 37939
 ```
 
-The parallel code only takes ~38 seconds compared to the sequential code that takes ~134 seconds!
+The parallel code wins a lot. It only takes ~38 seconds compared to the sequential code that takes ~134 seconds!
