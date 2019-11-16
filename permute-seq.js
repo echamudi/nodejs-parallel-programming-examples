@@ -1,3 +1,5 @@
+startTime = new Date();
+
 const fs = require("fs");
 
 function permute(input) {
@@ -29,11 +31,10 @@ function permute(input) {
 
 if(process.argv[2].length > 11) {
     console.log("Input is too long...");
-    process.exit(1)
+    process.exit(1);
 };
 
-startTime = new Date();
 let result = permute(process.argv[2]);
 console.log(result);
-console.log('completed calculation, timestamp:', new Date() - startTime);
+console.log('Completed calculation, timestamp:', new Date() - startTime);
 // fs.writeFileSync('./temp/permute-seq-result.json', JSON.stringify(result, null, 1));
