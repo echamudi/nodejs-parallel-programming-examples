@@ -247,3 +247,326 @@ mpiexec exited with code 0
 
 ## Unleash the power of parallel programming
 
+We will try two different approaches running the same naive permutation function. 
+
+The first one is done in sequential fashion, the second one is done concurrently. Same characters in the input string are considered different characters.
+
+Let's start with "Orange":
+
+```
+$ node permute-seq.js Orange
+[
+  'Orange', 'Oraneg', 'Oragne', 'Oragen', 'Oraeng', 'Oraegn',
+  'Ornage', 'Ornaeg', 'Orngae', 'Orngea', 'Orneag', 'Ornega',
+  'Organe', 'Orgaen', 'Orgnae', 'Orgnea', 'Orgean', 'Orgena',
+  'Oreang', 'Oreagn', 'Orenag', 'Orenga', 'Oregan', 'Oregna',
+  'Oarnge', 'Oarneg', 'Oargne', 'Oargen', 'Oareng', 'Oaregn',
+  'Oanrge', 'Oanreg', 'Oangre', 'Oanger', 'Oanerg', 'Oanegr',
+  'Oagrne', 'Oagren', 'Oagnre', 'Oagner', 'Oagern', 'Oagenr',
+  'Oaerng', 'Oaergn', 'Oaenrg', 'Oaengr', 'Oaegrn', 'Oaegnr',
+  'Onrage', 'Onraeg', 'Onrgae', 'Onrgea', 'Onreag', 'Onrega',
+  'Onarge', 'Onareg', 'Onagre', 'Onager', 'Onaerg', 'Onaegr',
+  'Ongrae', 'Ongrea', 'Ongare', 'Ongaer', 'Ongera', 'Ongear',
+  'Onerag', 'Onerga', 'Onearg', 'Oneagr', 'Onegra', 'Onegar',
+  'Ograne', 'Ograen', 'Ogrnae', 'Ogrnea', 'Ogrean', 'Ogrena',
+  'Ogarne', 'Ogaren', 'Oganre', 'Oganer', 'Ogaern', 'Ogaenr',
+  'Ognrae', 'Ognrea', 'Ognare', 'Ognaer', 'Ognera', 'Ognear',
+  'Ogeran', 'Ogerna', 'Ogearn', 'Ogeanr', 'Ogenra', 'Ogenar',
+  'Oerang', 'Oeragn', 'Oernag', 'Oernga',
+  ... 620 more items
+]
+Completed calculation, timestamp: 11
+```
+```
+$ node permute-par.js Orange
+Input: Orange
+We will permute the substrings...
+The substrings: [ 'range', 'Oange', 'Ornge', 'Orage', 'Orane', 'Orang' ]
+Cakes: [
+  { '0': 'range', '4': 'Orane' },
+  { '1': 'Oange', '5': 'Orang' },
+  { '2': 'Ornge' },
+  { '3': 'Orage' }
+]
+stdout:  Data for JOB [12613,1] offset 0
+
+ ========================   JOB MAP   ========================
+
+ Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [12613,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
+        Process OMPI jobid: [12613,1] App: 0 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
+        Process OMPI jobid: [12613,1] App: 0 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
+        Process OMPI jobid: [12613,1] App: 0 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+
+ =============================================================
+
+stdout: Core 1 is permuting Oange
+Core 1 is permuting Orang
+
+stdout: Core 1 completed all permutations!
+
+stdout: Core 2 is permuting Ornge
+
+stdout: Core 2 completed all permutations!
+
+stdout: Core 0 is permuting range
+
+stdout: Core 0 is permuting Orane
+
+stdout: Core 0 completed all permutations!
+Core 3 is permuting Orage
+
+Master detects all cores are done with their jobs!
+Final Result: [
+  'Orange', 'Oraneg', 'Oragne', 'Oragen', 'Oraeng', 'Oraegn',
+  'Ornage', 'Ornaeg', 'Orngae', 'Orngea', 'Orneag', 'Ornega',
+  'Organe', 'Orgaen', 'Orgnae', 'Orgnea', 'Orgean', 'Orgena',
+  'Oreang', 'Oreagn', 'Orenag', 'Orenga', 'Oregan', 'Oregna',
+  'Oarnge', 'Oarneg', 'Oargne', 'Oargen', 'Oareng', 'Oaregn',
+  'Oanrge', 'Oanreg', 'Oangre', 'Oanger', 'Oanerg', 'Oanegr',
+  'Oagrne', 'Oagren', 'Oagnre', 'Oagner', 'Oagern', 'Oagenr',
+  'Oaerng', 'Oaergn', 'Oaenrg', 'Oaengr', 'Oaegrn', 'Oaegnr',
+  'Onrage', 'Onraeg', 'Onrgae', 'Onrgea', 'Onreag', 'Onrega',
+  'Onarge', 'Onareg', 'Onagre', 'Onager', 'Onaerg', 'Onaegr',
+  'Ongrae', 'Ongrea', 'Ongare', 'Ongaer', 'Ongera', 'Ongear',
+  'Onerag', 'Onerga', 'Onearg', 'Oneagr', 'Onegra', 'Onegar',
+  'Ograne', 'Ograen', 'Ogrnae', 'Ogrnea', 'Ogrean', 'Ogrena',
+  'Ogarne', 'Ogaren', 'Oganre', 'Oganer', 'Ogaern', 'Ogaenr',
+  'Ognrae', 'Ognrea', 'Ognare', 'Ognaer', 'Ognera', 'Ognear',
+  'Ogeran', 'Ogerna', 'Ogearn', 'Ogeanr', 'Ogenra', 'Ogenar',
+  'Oerang', 'Oeragn', 'Oernag', 'Oernga',
+  ... 620 more items
+]
+Completed calculation, timestamp: 231
+```
+
+The parallel code (permute-par.js) takes more time than the sequntial code (permute-seq.js) due to overheads.
+
+Now, let's try longer input, "ThisIsTest":
+
+```
+$ node permute-seq.js ThisIsTest
+[
+  'ThisIsTest', 'ThisIsTets', 'ThisIsTset', 'ThisIsTste', 'ThisIsTtes',
+  'ThisIsTtse', 'ThisIseTst', 'ThisIseTts', 'ThisIsesTt', 'ThisIsestT',
+  'ThisIsetTs', 'ThisIsetsT', 'ThisIssTet', 'ThisIssTte', 'ThisIsseTt',
+  'ThisIssetT', 'ThisIsstTe', 'ThisIssteT', 'ThisIstTes', 'ThisIstTse',
+  'ThisIsteTs', 'ThisIstesT', 'ThisIstsTe', 'ThisIstseT', 'ThisITsest',
+  'ThisITsets', 'ThisITsset', 'ThisITsste', 'ThisITstes', 'ThisITstse',
+  'ThisITesst', 'ThisITests', 'ThisITesst', 'ThisITests', 'ThisITetss',
+  'ThisITetss', 'ThisITsset', 'ThisITsste', 'ThisITsest', 'ThisITsets',
+  'ThisITstse', 'ThisITstes', 'ThisITtses', 'ThisITtsse', 'ThisITtess',
+  'ThisITtess', 'ThisITtsse', 'ThisITtses', 'ThisIesTst', 'ThisIesTts',
+  'ThisIessTt', 'ThisIesstT', 'ThisIestTs', 'ThisIestsT', 'ThisIeTsst',
+  'ThisIeTsts', 'ThisIeTsst', 'ThisIeTsts', 'ThisIeTtss', 'ThisIeTtss',
+  'ThisIessTt', 'ThisIesstT', 'ThisIesTst', 'ThisIesTts', 'ThisIestsT',
+  'ThisIestTs', 'ThisIetsTs', 'ThisIetssT', 'ThisIetTss', 'ThisIetTss',
+  'ThisIetssT', 'ThisIetsTs', 'ThisIssTet', 'ThisIssTte', 'ThisIsseTt',
+  'ThisIssetT', 'ThisIsstTe', 'ThisIssteT', 'ThisIsTset', 'ThisIsTste',
+  'ThisIsTest', 'ThisIsTets', 'ThisIsTtse', 'ThisIsTtes', 'ThisIsesTt',
+  'ThisIsestT', 'ThisIseTst', 'ThisIseTts', 'ThisIsetsT', 'ThisIsetTs',
+  'ThisIstsTe', 'ThisIstseT', 'ThisIstTse', 'ThisIstTes', 'ThisIstesT',
+  'ThisIsteTs', 'ThisItsTes', 'ThisItsTse', 'ThisItseTs', 'ThisItsesT',
+  ... 3628700 more items
+]
+Completed calculation, timestamp: 4449
+```
+```
+$ node permute-par.js ThisIsTest
+Input: ThisIsTest
+We will permute the substrings...
+The substrings: [
+  'hisIsTest', 'TisIsTest',
+  'ThsIsTest', 'ThiIsTest',
+  'ThissTest', 'ThisITest',
+  'ThisIsest', 'ThisIsTst',
+  'ThisIsTet', 'ThisIsTes'
+]
+Cakes: [
+  { '0': 'hisIsTest', '4': 'ThissTest', '8': 'ThisIsTet' },
+  { '1': 'TisIsTest', '5': 'ThisITest', '9': 'ThisIsTes' },
+  { '2': 'ThsIsTest', '6': 'ThisIsest' },
+  { '3': 'ThiIsTest', '7': 'ThisIsTst' }
+]
+stdout:  Data for JOB [14114,1] offset 0
+
+ ========================   JOB MAP   ========================
+
+ Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [14114,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
+        Process OMPI jobid: [14114,1] App: 0 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
+        Process OMPI jobid: [14114,1] App: 0 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
+        Process OMPI jobid: [14114,1] App: 0 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+
+ =============================================================
+
+stdout: Core 0 is permuting hisIsTest
+
+stdout: Core 2 is permuting ThsIsTest
+
+stdout: Core 1 is permuting TisIsTest
+
+stdout: Core 3 is permuting ThiIsTest
+
+stdout: Core 1 is permuting ThisITest
+
+stdout: Core 0 is permuting ThissTest
+Core 2 is permuting ThisIsest
+
+stdout: Core 3 is permuting ThisIsTst
+
+stdout: Core 2 completed all permutations!
+
+stdout: Core 1 is permuting ThisIsTes
+
+stdout: Core 0 is permuting ThisIsTet
+
+stdout: Core 3 completed all permutations!
+
+stdout: Core 1 completed all permutations!
+
+stdout: Core 0 completed all permutations!
+
+Master detects all cores are done with their jobs!
+Final Result: [
+  'ThisIsTest', 'ThisIsTets', 'ThisIsTset', 'ThisIsTste', 'ThisIsTtes',
+  'ThisIsTtse', 'ThisIseTst', 'ThisIseTts', 'ThisIsesTt', 'ThisIsestT',
+  'ThisIsetTs', 'ThisIsetsT', 'ThisIssTet', 'ThisIssTte', 'ThisIsseTt',
+  'ThisIssetT', 'ThisIsstTe', 'ThisIssteT', 'ThisIstTes', 'ThisIstTse',
+  'ThisIsteTs', 'ThisIstesT', 'ThisIstsTe', 'ThisIstseT', 'ThisITsest',
+  'ThisITsets', 'ThisITsset', 'ThisITsste', 'ThisITstes', 'ThisITstse',
+  'ThisITesst', 'ThisITests', 'ThisITesst', 'ThisITests', 'ThisITetss',
+  'ThisITetss', 'ThisITsset', 'ThisITsste', 'ThisITsest', 'ThisITsets',
+  'ThisITstse', 'ThisITstes', 'ThisITtses', 'ThisITtsse', 'ThisITtess',
+  'ThisITtess', 'ThisITtsse', 'ThisITtses', 'ThisIesTst', 'ThisIesTts',
+  'ThisIessTt', 'ThisIesstT', 'ThisIestTs', 'ThisIestsT', 'ThisIeTsst',
+  'ThisIeTsts', 'ThisIeTsst', 'ThisIeTsts', 'ThisIeTtss', 'ThisIeTtss',
+  'ThisIessTt', 'ThisIesstT', 'ThisIesTst', 'ThisIesTts', 'ThisIestsT',
+  'ThisIestTs', 'ThisIetsTs', 'ThisIetssT', 'ThisIetTss', 'ThisIetTss',
+  'ThisIetssT', 'ThisIetsTs', 'ThisIssTet', 'ThisIssTte', 'ThisIsseTt',
+  'ThisIssetT', 'ThisIsstTe', 'ThisIssteT', 'ThisIsTset', 'ThisIsTste',
+  'ThisIsTest', 'ThisIsTets', 'ThisIsTtse', 'ThisIsTtes', 'ThisIsesTt',
+  'ThisIsestT', 'ThisIseTst', 'ThisIseTts', 'ThisIsetsT', 'ThisIsetTs',
+  'ThisIstsTe', 'ThisIstseT', 'ThisIstTse', 'ThisIstTes', 'ThisIstesT',
+  'ThisIsteTs', 'ThisItsTes', 'ThisItsTse', 'ThisItseTs', 'ThisItsesT',
+  ... 3628700 more items
+]
+Completed calculation, timestamp: 2625
+```
+We can already see that the parallel code generate the result faster.
+Let's try one character longer text: "BigRedKnife"
+```
+$ node permute-seq.js BigRedKnife
+[
+  'BigRedKnife', 'BigRedKnief', 'BigRedKnfie', 'BigRedKnfei', 'BigRedKneif',
+  'BigRedKnefi', 'BigRedKinfe', 'BigRedKinef', 'BigRedKifne', 'BigRedKifen',
+  'BigRedKienf', 'BigRedKiefn', 'BigRedKfnie', 'BigRedKfnei', 'BigRedKfine',
+  'BigRedKfien', 'BigRedKfeni', 'BigRedKfein', 'BigRedKenif', 'BigRedKenfi',
+  'BigRedKeinf', 'BigRedKeifn', 'BigRedKefni', 'BigRedKefin', 'BigRednKife',
+  'BigRednKief', 'BigRednKfie', 'BigRednKfei', 'BigRednKeif', 'BigRednKefi',
+  'BigRedniKfe', 'BigRedniKef', 'BigRednifKe', 'BigRednifeK', 'BigRednieKf',
+  'BigRedniefK', 'BigRednfKie', 'BigRednfKei', 'BigRednfiKe', 'BigRednfieK',
+  'BigRednfeKi', 'BigRednfeiK', 'BigRedneKif', 'BigRedneKfi', 'BigRedneiKf',
+  'BigRedneifK', 'BigRednefKi', 'BigRednefiK', 'BigRediKnfe', 'BigRediKnef',
+  'BigRediKfne', 'BigRediKfen', 'BigRediKenf', 'BigRediKefn', 'BigRedinKfe',
+  'BigRedinKef', 'BigRedinfKe', 'BigRedinfeK', 'BigRedineKf', 'BigRedinefK',
+  'BigRedifKne', 'BigRedifKen', 'BigRedifnKe', 'BigRedifneK', 'BigRedifeKn',
+  'BigRedifenK', 'BigRedieKnf', 'BigRedieKfn', 'BigRedienKf', 'BigRedienfK',
+  'BigRediefKn', 'BigRediefnK', 'BigRedfKnie', 'BigRedfKnei', 'BigRedfKine',
+  'BigRedfKien', 'BigRedfKeni', 'BigRedfKein', 'BigRedfnKie', 'BigRedfnKei',
+  'BigRedfniKe', 'BigRedfnieK', 'BigRedfneKi', 'BigRedfneiK', 'BigRedfiKne',
+  'BigRedfiKen', 'BigRedfinKe', 'BigRedfineK', 'BigRedfieKn', 'BigRedfienK',
+  'BigRedfeKni', 'BigRedfeKin', 'BigRedfenKi', 'BigRedfeniK', 'BigRedfeiKn',
+  'BigRedfeinK', 'BigRedeKnif', 'BigRedeKnfi', 'BigRedeKinf', 'BigRedeKifn',
+  ... 39916700 more items
+]
+Completed calculation, timestamp: 133692
+```
+```
+$ node permute-par.js BigRedKnife
+Input: BigRedKnife
+We will permute the substrings...
+The substrings: [
+  'igRedKnife', 'BgRedKnife',
+  'BiRedKnife', 'BigedKnife',
+  'BigRdKnife', 'BigReKnife',
+  'BigRednife', 'BigRedKife',
+  'BigRedKnfe', 'BigRedKnie',
+  'BigRedKnif'
+]
+Cakes: [
+  { '0': 'igRedKnife', '4': 'BigRdKnife', '8': 'BigRedKnfe' },
+  { '1': 'BgRedKnife', '5': 'BigReKnife', '9': 'BigRedKnie' },
+  { '2': 'BiRedKnife', '6': 'BigRednife', '10': 'BigRedKnif' },
+  { '3': 'BigedKnife', '7': 'BigRedKife' }
+]
+stdout:  Data for JOB [14367,1] offset 0
+
+ ========================   JOB MAP   ========================
+
+ Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [14367,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
+        Process OMPI jobid: [14367,1] App: 0 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
+        Process OMPI jobid: [14367,1] App: 0 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
+        Process OMPI jobid: [14367,1] App: 0 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+
+ =============================================================
+
+stdout: Core 0 is permuting igRedKnife
+
+stdout: Core 2 is permuting BiRedKnife
+
+stdout: Core 1 is permuting BgRedKnife
+
+stdout: Core 3 is permuting BigedKnife
+
+stdout: Core 3 is permuting BigRedKife
+
+stdout: Core 2 is permuting BigRednife
+
+stdout: Core 1 is permuting BigReKnife
+
+stdout: Core 0 is permuting BigRdKnife
+
+stdout: Core 2 is permuting BigRedKnif
+
+stdout: Core 3 completed all permutations!
+
+stdout: Core 1 is permuting BigRedKnie
+
+stdout: Core 0 is permuting BigRedKnfe
+
+stdout: Core 2 completed all permutations!
+
+stdout: Core 1 completed all permutations!
+
+stdout: Core 0 completed all permutations!
+
+Master detects all cores are done with their jobs!
+Final Result: [
+  'BigRedKnife', 'BigRedKnief', 'BigRedKnfie', 'BigRedKnfei', 'BigRedKneif',
+  'BigRedKnefi', 'BigRedKinfe', 'BigRedKinef', 'BigRedKifne', 'BigRedKifen',
+  'BigRedKienf', 'BigRedKiefn', 'BigRedKfnie', 'BigRedKfnei', 'BigRedKfine',
+  'BigRedKfien', 'BigRedKfeni', 'BigRedKfein', 'BigRedKenif', 'BigRedKenfi',
+  'BigRedKeinf', 'BigRedKeifn', 'BigRedKefni', 'BigRedKefin', 'BigRednKife',
+  'BigRednKief', 'BigRednKfie', 'BigRednKfei', 'BigRednKeif', 'BigRednKefi',
+  'BigRedniKfe', 'BigRedniKef', 'BigRednifKe', 'BigRednifeK', 'BigRednieKf',
+  'BigRedniefK', 'BigRednfKie', 'BigRednfKei', 'BigRednfiKe', 'BigRednfieK',
+  'BigRednfeKi', 'BigRednfeiK', 'BigRedneKif', 'BigRedneKfi', 'BigRedneiKf',
+  'BigRedneifK', 'BigRednefKi', 'BigRednefiK', 'BigRediKnfe', 'BigRediKnef',
+  'BigRediKfne', 'BigRediKfen', 'BigRediKenf', 'BigRediKefn', 'BigRedinKfe',
+  'BigRedinKef', 'BigRedinfKe', 'BigRedinfeK', 'BigRedineKf', 'BigRedinefK',
+  'BigRedifKne', 'BigRedifKen', 'BigRedifnKe', 'BigRedifneK', 'BigRedifeKn',
+  'BigRedifenK', 'BigRedieKnf', 'BigRedieKfn', 'BigRedienKf', 'BigRedienfK',
+  'BigRediefKn', 'BigRediefnK', 'BigRedfKnie', 'BigRedfKnei', 'BigRedfKine',
+  'BigRedfKien', 'BigRedfKeni', 'BigRedfKein', 'BigRedfnKie', 'BigRedfnKei',
+  'BigRedfniKe', 'BigRedfnieK', 'BigRedfneKi', 'BigRedfneiK', 'BigRedfiKne',
+  'BigRedfiKen', 'BigRedfinKe', 'BigRedfineK', 'BigRedfieKn', 'BigRedfienK',
+  'BigRedfeKni', 'BigRedfeKin', 'BigRedfenKi', 'BigRedfeniK', 'BigRedfeiKn',
+  'BigRedfeinK', 'BigRedeKnif', 'BigRedeKnfi', 'BigRedeKinf', 'BigRedeKifn',
+  ... 39916700 more items
+]
+Completed calculation, timestamp: 37939
+```
+
+The parallel code only takes ~38 seconds compared to the sequential code that takes ~134 seconds!
