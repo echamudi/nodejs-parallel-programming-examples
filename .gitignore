@@ -63,4 +63,8 @@ typings/
 # temp result
 /temp/**/*.*
 !/temp/.gitkeep
+
+# compiled files
 /a.out
+/Hello.class
+/hello
