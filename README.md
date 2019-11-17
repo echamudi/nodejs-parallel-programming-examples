@@ -164,8 +164,6 @@ Read more about `mpiexec` command and available option in the [documentation](ht
 
 ## Using MPI with node.js
 
-> The following examples require computer with 4 cores to run
-
 Using the same concept, we can run node program in multiple cores.
 
 ```
