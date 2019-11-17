@@ -281,7 +281,7 @@ The first one is done in sequential fashion, the second one is done concurrently
 Let's start with "Orange":
 
 ```
-$ node permute-seq.js Orange
+ node permute-seq.js Orange
 [
   'Orange', 'Oraneg', 'Oragne', 'Oragen', 'Oraeng', 'Oraegn',
   'Ornage', 'Ornaeg', 'Orngae', 'Orngea', 'Orneag', 'Ornega',
@@ -302,47 +302,42 @@ $ node permute-seq.js Orange
   'Oerang', 'Oeragn', 'Oernag', 'Oernga',
   ... 620 more items
 ]
-Completed calculation, timestamp: 11
+Completed calculation, timestamp: 13
 ```
 ```
-$ node permute-par.js Orange
-Input: Orange
+$ node permute-par.js 4 Orange
+Starting
+Number of Cores : 4
+Input text : Orange
 We will permute the substrings...
 The substrings: [ 'range', 'Oange', 'Ornge', 'Orage', 'Orane', 'Orang' ]
-Cakes: [
+Cakes for the cores: [
   { '0': 'range', '4': 'Orane' },
   { '1': 'Oange', '5': 'Orang' },
   { '2': 'Ornge' },
   { '3': 'Orage' }
 ]
-stdout:  Data for JOB [12613,1] offset 0
+Executing mpiexec...
+ Data for JOB [47510,1] offset 0 Total slots allocated 4
 
  ========================   JOB MAP   ========================
 
- Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
-        Process OMPI jobid: [12613,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
-        Process OMPI jobid: [12613,1] App: 0 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
-        Process OMPI jobid: [12613,1] App: 0 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
-        Process OMPI jobid: [12613,1] App: 0 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+ Data for node: ezzat-mbp       Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [47510,1] App: 0 Process rank: 0 Bound: N/A
+        Process OMPI jobid: [47510,1] App: 0 Process rank: 1 Bound: N/A
+        Process OMPI jobid: [47510,1] App: 0 Process rank: 2 Bound: N/A
+        Process OMPI jobid: [47510,1] App: 0 Process rank: 3 Bound: N/A
 
  =============================================================
-
-stdout: Core 1 is permuting Oange
+Core 0 is permuting range
+Core 0 is permuting Orane
+Core 0 completed all permutations!
+Core 1 is permuting Oange
 Core 1 is permuting Orang
-
-stdout: Core 1 completed all permutations!
-
-stdout: Core 2 is permuting Ornge
-
-stdout: Core 2 completed all permutations!
-
-stdout: Core 0 is permuting range
-
-stdout: Core 0 is permuting Orane
-
-stdout: Core 0 completed all permutations!
+Core 1 completed all permutations!
+Core 2 is permuting Ornge
+Core 2 completed all permutations!
 Core 3 is permuting Orage
-
 Master detects all cores are done with their jobs!
 Final Result: [
   'Orange', 'Oraneg', 'Oragne', 'Oragen', 'Oraeng', 'Oraegn',
@@ -364,7 +359,7 @@ Final Result: [
   'Oerang', 'Oeragn', 'Oernag', 'Oernga',
   ... 620 more items
 ]
-Completed calculation, timestamp: 231
+Completed calculation, timestamp: 275
 ```
 
 The parallel code (`permute-par.js`) run worse in thime than the sequential code (`permute-seq.js`) due to some overheads required by the parallel code.
@@ -396,11 +391,13 @@ $ node permute-seq.js ThisIsTest
   'ThisIsteTs', 'ThisItsTes', 'ThisItsTse', 'ThisItseTs', 'ThisItsesT',
   ... 3628700 more items
 ]
-Completed calculation, timestamp: 4449
+Completed calculation, timestamp: 3716
 ```
 ```
-$ node permute-par.js ThisIsTest
-Input: ThisIsTest
+$ node permute-par.js 4 ThisIsTest
+Starting
+Number of Cores : 4
+Input text : ThisIsTest
 We will permute the substrings...
 The substrings: [
   'hisIsTest', 'TisIsTest',
@@ -409,51 +406,37 @@ The substrings: [
   'ThisIsest', 'ThisIsTst',
   'ThisIsTet', 'ThisIsTes'
 ]
-Cakes: [
+Cakes for the cores: [
   { '0': 'hisIsTest', '4': 'ThissTest', '8': 'ThisIsTet' },
   { '1': 'TisIsTest', '5': 'ThisITest', '9': 'ThisIsTes' },
   { '2': 'ThsIsTest', '6': 'ThisIsest' },
   { '3': 'ThiIsTest', '7': 'ThisIsTst' }
 ]
-stdout:  Data for JOB [14114,1] offset 0
+Executing mpiexec...
+ Data for JOB [47702,1] offset 0 Total slots allocated 4
 
  ========================   JOB MAP   ========================
 
- Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
-        Process OMPI jobid: [14114,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
-        Process OMPI jobid: [14114,1] App: 0 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
-        Process OMPI jobid: [14114,1] App: 0 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
-        Process OMPI jobid: [14114,1] App: 0 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+ Data for node: ezzat-mbp       Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [47702,1] App: 0 Process rank: 0 Bound: N/A
+        Process OMPI jobid: [47702,1] App: 0 Process rank: 1 Bound: N/A
+        Process OMPI jobid: [47702,1] App: 0 Process rank: 2 Bound: N/A
+        Process OMPI jobid: [47702,1] App: 0 Process rank: 3 Bound: N/A
 
  =============================================================
-
-stdout: Core 0 is permuting hisIsTest
-
-stdout: Core 2 is permuting ThsIsTest
-
-stdout: Core 1 is permuting TisIsTest
-
-stdout: Core 3 is permuting ThiIsTest
-
-stdout: Core 1 is permuting ThisITest
-
-stdout: Core 0 is permuting ThissTest
+Core 0 is permuting hisIsTest
+Core 1 is permuting TisIsTest
+Core 2 is permuting ThsIsTest
+Core 3 is permuting ThiIsTest
+Core 1 is permuting ThisITest
+Core 3 is permuting ThisIsTst
+Core 0 is permuting ThissTest
 Core 2 is permuting ThisIsest
-
-stdout: Core 3 is permuting ThisIsTst
-
-stdout: Core 2 completed all permutations!
-
-stdout: Core 1 is permuting ThisIsTes
-
-stdout: Core 0 is permuting ThisIsTet
-
-stdout: Core 3 completed all permutations!
-
-stdout: Core 1 completed all permutations!
-
-stdout: Core 0 completed all permutations!
-
+Core 1 is permuting ThisIsTes
+Core 3 completed all permutations!
+Core 0 is permuting ThisIsTet
+Core 2 completed all permutations!
+Core 1 completed all permutations!
 Master detects all cores are done with their jobs!
 Final Result: [
   'ThisIsTest', 'ThisIsTets', 'ThisIsTset', 'ThisIsTste', 'ThisIsTtes',
@@ -478,7 +461,7 @@ Final Result: [
   'ThisIsteTs', 'ThisItsTes', 'ThisItsTse', 'ThisItseTs', 'ThisItsesT',
   ... 3628700 more items
 ]
-Completed calculation, timestamp: 2625
+Completed calculation, timestamp: 2321
 ```
 
 We can already see that the parallel code generate the result faster.
@@ -509,11 +492,13 @@ $ node permute-seq.js BigRedKnife
   'BigRedfeinK', 'BigRedeKnif', 'BigRedeKnfi', 'BigRedeKinf', 'BigRedeKifn',
   ... 39916700 more items
 ]
-Completed calculation, timestamp: 133692
+Completed calculation, timestamp: 166772
 ```
 ```
-$ node permute-par.js BigRedKnife
-Input: BigRedKnife
+$ node permute-par.js 4 BigRedKnife
+Starting
+Number of Cores : 4
+Input text : BigRedKnife
 We will permute the substrings...
 The substrings: [
   'igRedKnife', 'BgRedKnife',
@@ -523,54 +508,39 @@ The substrings: [
   'BigRedKnfe', 'BigRedKnie',
   'BigRedKnif'
 ]
-Cakes: [
+Cakes for the cores: [
   { '0': 'igRedKnife', '4': 'BigRdKnife', '8': 'BigRedKnfe' },
   { '1': 'BgRedKnife', '5': 'BigReKnife', '9': 'BigRedKnie' },
   { '2': 'BiRedKnife', '6': 'BigRednife', '10': 'BigRedKnif' },
   { '3': 'BigedKnife', '7': 'BigRedKife' }
 ]
-stdout:  Data for JOB [14367,1] offset 0
+Executing mpiexec...
+ Data for JOB [47849,1] offset 0 Total slots allocated 4
 
  ========================   JOB MAP   ========================
 
- Data for node: ubuntu  Num slots: 4    Max slots: 0    Num procs: 4
-        Process OMPI jobid: [14367,1] App: 0 Process rank: 0 Bound: socket 0[core 0[hwt 0]]:[B/././.]
-        Process OMPI jobid: [14367,1] App: 0 Process rank: 1 Bound: socket 0[core 1[hwt 0]]:[./B/./.]
-        Process OMPI jobid: [14367,1] App: 0 Process rank: 2 Bound: socket 0[core 2[hwt 0]]:[././B/.]
-        Process OMPI jobid: [14367,1] App: 0 Process rank: 3 Bound: socket 0[core 3[hwt 0]]:[./././B]
+ Data for node: ezzat-mbp       Num slots: 4    Max slots: 0    Num procs: 4
+        Process OMPI jobid: [47849,1] App: 0 Process rank: 0 Bound: N/A
+        Process OMPI jobid: [47849,1] App: 0 Process rank: 1 Bound: N/A
+        Process OMPI jobid: [47849,1] App: 0 Process rank: 2 Bound: N/A
+        Process OMPI jobid: [47849,1] App: 0 Process rank: 3 Bound: N/A
 
  =============================================================
-
-stdout: Core 0 is permuting igRedKnife
-
-stdout: Core 2 is permuting BiRedKnife
-
-stdout: Core 1 is permuting BgRedKnife
-
-stdout: Core 3 is permuting BigedKnife
-
-stdout: Core 3 is permuting BigRedKife
-
-stdout: Core 2 is permuting BigRednife
-
-stdout: Core 1 is permuting BigReKnife
-
-stdout: Core 0 is permuting BigRdKnife
-
-stdout: Core 2 is permuting BigRedKnif
-
-stdout: Core 3 completed all permutations!
-
-stdout: Core 1 is permuting BigRedKnie
-
-stdout: Core 0 is permuting BigRedKnfe
-
-stdout: Core 2 completed all permutations!
-
-stdout: Core 1 completed all permutations!
-
-stdout: Core 0 completed all permutations!
-
+Core 0 is permuting igRedKnife
+Core 1 is permuting BgRedKnife
+Core 2 is permuting BiRedKnife
+Core 3 is permuting BigedKnife
+Core 0 is permuting BigRdKnife
+Core 1 is permuting BigReKnife
+Core 3 is permuting BigRedKife
+Core 2 is permuting BigRednife
+Core 0 is permuting BigRedKnfe
+Core 3 completed all permutations!
+Core 1 is permuting BigRedKnie
+Core 2 is permuting BigRedKnif
+Core 0 completed all permutations!
+Core 1 completed all permutations!
+Core 2 completed all permutations!
 Master detects all cores are done with their jobs!
 Final Result: [
   'BigRedKnife', 'BigRedKnief', 'BigRedKnfie', 'BigRedKnfei', 'BigRedKneif',
@@ -595,7 +565,7 @@ Final Result: [
   'BigRedfeinK', 'BigRedeKnif', 'BigRedeKnfi', 'BigRedeKinf', 'BigRedeKifn',
   ... 39916700 more items
 ]
-Completed calculation, timestamp: 37939
+Completed calculation, timestamp: 39190
 ```
 
-The parallel code wins a lot. It only takes ~38 seconds compared to the sequential code that takes ~134 seconds!
+The parallel code wins a lot. It only takes ~39 seconds compared to the sequential code that takes ~167 seconds!
