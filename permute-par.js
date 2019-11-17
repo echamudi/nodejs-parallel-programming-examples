@@ -5,7 +5,8 @@ const ipc = require('node-ipc');
 if (process.env.OMPI_COMM_WORLD_SIZE === undefined) {
     const { spawn } = require('child_process');
 
-    const input = process.argv[2];
+    const numOfCores = Number(process.argv[2]);
+    const input = process.argv[3];
     
     if(input.length > 11) {
         console.log("Input is too long...");
@@ -26,7 +27,11 @@ if (process.env.OMPI_COMM_WORLD_SIZE === undefined) {
     console.log('The substrings:', subStrings);
     
     subStrings = subStrings.reverse();
-    const cakes = [{},{},{},{}];
+    const cakes = [];
+
+    for (let i = 0; i < numOfCores; i++) {
+        cakes.push({});
+    }
 
     let i = 0; // index of cake
     let j = 0; // index of subString
@@ -34,7 +39,7 @@ if (process.env.OMPI_COMM_WORLD_SIZE === undefined) {
         cakes[i][j] = subStrings.pop();
 
         i++;
-        if (i > 3)i = 0;
+        if (i >= numOfCores) i = 0;
         j++;
     }
 
@@ -69,7 +74,7 @@ if (process.env.OMPI_COMM_WORLD_SIZE === undefined) {
 
                     ipc.server.emit(socket, 'end');
 
-                    if(receivalCount === 4) {
+                    if(receivalCount === numOfCores) {
                         console.log('Master detects all cores are done with their jobs!');
 
                         for(let i = 0; i < letters.length; i++) {
@@ -92,14 +97,14 @@ if (process.env.OMPI_COMM_WORLD_SIZE === undefined) {
 
     ipc.server.start();
 
-    const mpiexec = spawn('mpiexec', ['--display-map', '--bind-to', 'core', 'node', '--max-old-space-size=8192', 'permute-par.js']);
+    const mpiexec = spawn('mpiexec', ['--display-map', '-n', numOfCores, 'node', '--max-old-space-size=8192', 'permute-par.js']);
 
     mpiexec.stdout.on('data', (data) => {
-        console.error(`stdout: ${data}`);
+        console.log(data.toString());
     });
 
     mpiexec.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
+        console.error(data.toString());
     });
 
     mpiexec.on('close', (code) => {
