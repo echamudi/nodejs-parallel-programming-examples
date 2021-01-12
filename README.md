@@ -270,7 +270,7 @@ mpiexec exited with code 0
 
 ## Unleash the power of parallel programming
 
-We will try two different approaches running the same naive permutation function. 
+We will try two different approaches running a same naive permutation function.
 
 The first one is done in sequential fashion, the second one is done concurrently. 
 
@@ -360,7 +360,7 @@ Final Result: [
 Completed calculation, timestamp: 275
 ```
 
-The parallel code (`permute-par.js`) run worse in thime than the sequential code (`permute-seq.js`) due to some overheads required by the parallel code.
+The parallel code (`permute-par.js`) run worse in time than the sequential code (`permute-seq.js`) due to some overheads required by the parallel code.
 
 Now, let's try longer input, "ThisIsTest":
 
